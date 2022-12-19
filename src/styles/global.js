@@ -12,6 +12,6 @@ export const GlobalStyles = createGlobalStyle`
    }
 
    body {
-      background: ${ ({ theme }) => theme.COLORS.PRIMARY_BACKGROUND_COLOR };
+      background: ${ ({ theme }) => theme.BACKGROUND_COLORS.PRIMARY };
    }
 `;
