@@ -13,7 +13,7 @@ export const Input = Styled.input`
       background: none;
 
       border-radius: 0.5rem;
-      border: 1px solid ${({ theme }) => theme.TEXT_COLORS.GRAY_SECONDARY };
+      border: 1px solid ${({ theme }) => theme.TEXT_COLORS.PRIMARY };
 
    &::placeholder {
       color: ${({ theme }) => theme.TEXT_COLORS.GRAY_SECONDARY };
