@@ -14,4 +14,16 @@ export const Button = Styled.button`
 
    border-radius: 0.5rem;
    border: none;
+
+   cursor: pointer;
+
+   &:hover {
+      transition-delay: 0.1s;
+      opacity: 0.9;
+   }
+
+   &:focus {
+      transition-delay: 0.1s;
+      opacity: 0.9;
+   }
 `;
