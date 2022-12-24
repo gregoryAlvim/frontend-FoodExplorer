@@ -1,4 +1,7 @@
-import { useNavigate } from "react-router-dom";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+import { api } from '../../services/api';
 
 import { IconFoodExplorerComponent } from '../../components/IconFoodExplorer';
 import { TitleComponent } from '../../components/Title';
@@ -14,8 +17,28 @@ export function SignUp() {
    
    const navigate = useNavigate();
 
+   const [ name, setName ] = useState("");
+   const [ email, setEmail ] = useState("");
+   const [ password, setPassword ] = useState("");
+   const [ repeatPassword, setRepeatPassword ] = useState("");
+
    function redirectToSignIn() {
       navigate('/');
+   }
+
+   function handleSignUp() {
+      api.post("/users/create-user", { name, email, password, repeatPassword })
+      .then(response => {
+         alert(response.data);
+         redirectToSignIn();
+      })
+      .catch(error => {
+         if (error.response) {
+            alert(error.response.data.message);
+         } else {
+            alert("Não foi possível cadastrar o usuário, tente novamente mais tarde!");
+         }
+      });
    }
 
    return (
@@ -31,22 +54,35 @@ export function SignUp() {
             </SubTitleComponent>
 
             <LoginContainer>
-               <LabelComponent>
+               <LabelComponent
+                  onChange={ event => setName(event.target.value) }
+               >
                   Nome
                   <InputComponent type="text" placeholder="Exemplo: fulano de tal" />
                </LabelComponent>
 
-               <LabelComponent>
+               <LabelComponent
+                  onChange={ event => setEmail(event.target.value) }
+               >
                   E-mail
                   <InputComponent type="text" placeholder="Exemplo: exemplo@gmail.com" />
                </LabelComponent>
 
-               <LabelComponent>
+               <LabelComponent
+                  onChange={ event => setPassword(event.target.value) }
+               >
                   Senha
                   <InputComponent type="password" placeholder="No mínimo 6 caracteres" />
                </LabelComponent>
 
-               <ButtonComponent>
+               <LabelComponent
+                  onChange={ event => setRepeatPassword(event.target.value) }
+               >
+                  Confirmar senha
+                  <InputComponent type="password" placeholder="Digite a senha anterior" />
+               </LabelComponent>
+
+               <ButtonComponent onClick={handleSignUp}>
                   Criar conta
                </ButtonComponent>
                
