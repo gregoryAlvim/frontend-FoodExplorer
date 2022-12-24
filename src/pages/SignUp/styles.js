@@ -40,7 +40,8 @@ export const Main = Styled.main`
    @media ${devices.mobile} {
       display: flex;
       flex-direction: column;
-
+      
+      margin-bottom: 3rem;
       padding: 0;
 
       & .foodExplorerTitle {
