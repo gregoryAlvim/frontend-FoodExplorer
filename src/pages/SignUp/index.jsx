@@ -3,13 +3,15 @@ import { useNavigate } from 'react-router-dom';
 
 import { api } from '../../services/api';
 
-import { IconFoodExplorerComponent } from '../../components/IconFoodExplorer';
+import { IconComponent } from '../../components/Icon';
 import { TitleComponent } from '../../components/Title';
 import { SubTitleComponent } from '../../components/SubTitle';
 import { LabelComponent } from '../../components/Label';
 import { InputComponent } from '../../components/Input';
 import { ButtonComponent } from '../../components/Button';
 import { TextButtonComponent } from '../../components/TextButton';
+
+import imageIconFoodExplorer from '../../assets/PolygonIcon.png';
 
 import { Main, AccessAccountContainer, LoginContainer } from './styles.js';
 
@@ -44,7 +46,7 @@ export function SignUp() {
    return (
       <Main>
          <TitleComponent className="foodExplorerTitle">
-            <IconFoodExplorerComponent />
+            <IconComponent icon={imageIconFoodExplorer} />
             food explorer
          </TitleComponent>
 
