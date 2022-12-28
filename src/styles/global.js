@@ -12,6 +12,11 @@ export const GlobalStyles = createGlobalStyle`
    }
 
    body {
+      font-family: "Roboto";
+      font-weight: 400;
+      font-size: 1.6rem;
+
       background: ${ ({ theme }) => theme.BACKGROUND_COLORS.PRIMARY };
+      color: ${ ({ theme }) => theme.TEXT_COLORS.PRIMARY };
    }
 `;
