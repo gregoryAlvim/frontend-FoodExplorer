@@ -1,7 +1,7 @@
 import { Input } from './styles';
 
-export function InputComponent({ ...rest }) {
-   return(
+export function InputComponent({ icon, ...rest }) {
+   return(   
       <Input 
          { ...rest }
       />
