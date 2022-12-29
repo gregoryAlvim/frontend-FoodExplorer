@@ -1,9 +1,9 @@
-import { useState, useContext } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { AuthContext } from '../../hooks/auth';
+import { useAuth } from '../../hooks/auth';
 
-import { IconFoodExplorerComponent } from '../../components/IconFoodExplorer';
+import { IconComponent } from '../../components/Icon';
 import { TitleComponent } from '../../components/Title';
 import { SubTitleComponent } from '../../components/SubTitle';
 import { LabelComponent } from '../../components/Label';
@@ -11,11 +11,13 @@ import { InputComponent } from '../../components/Input';
 import { ButtonComponent } from '../../components/Button';
 import { TextButtonComponent } from '../../components/TextButton';
 
+import imageIconFoodExplorer from '../../assets/PolygonIcon.png';
+
 import { Main, AccessAccountContainer, LoginContainer } from './styles.js';
 
 export function SignIn() {
 
-   const data = useContext( AuthContext );
+   const { signIn } = useAuth();
 
    const [ email, setEmail ] = useState("");
    const [ password, setPassword ] = useState("");
@@ -26,10 +28,14 @@ export function SignIn() {
       navigate('create-account');
    }
 
+   function handleSignIn() {
+      signIn({ email, password });
+   }
+
    return (
       <Main>
          <TitleComponent className="foodExplorerTitle">
-            <IconFoodExplorerComponent />
+            <IconComponent icon={imageIconFoodExplorer} />
             food explorer
          </TitleComponent>
 
@@ -53,7 +59,9 @@ export function SignIn() {
                   <InputComponent type="password" placeholder="No mínimo 6 caracteres" />
                </LabelComponent>
 
-               <ButtonComponent>
+               <ButtonComponent
+                  onClick={handleSignIn}
+               >
                   Entrar
                </ButtonComponent>
                
