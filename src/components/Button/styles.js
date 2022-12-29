@@ -4,6 +4,11 @@ export const Button = Styled.button`
    width: 100%;
    height: 5rem;
 
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 1rem;
+
    padding: 1.2rem;
 
    font-family: "Poppins";
