@@ -8,12 +8,6 @@ export const Main = Styled.main`
 
    padding: 14rem;
 
-   font-family: "Roboto";
-   font-weight: 400;
-   font-size: 1.6rem;
-
-   color: ${({ theme }) => theme.TEXT_COLORS.PRIMARY};
-
    & .foodExplorerTitle {
       display: flex;
       align-items: center;
@@ -58,7 +52,7 @@ export const AccessAccountContainer = Styled.article`
 
    border-radius: 1.6rem;
 
-   background: ${({ theme }) => theme.BACKGROUND_COLORS.SECONDARY};
+   background: ${({ theme }) => theme.BACKGROUND_COLORS.TERTIARY};
 
    & .subtitle {
       font-family: 'Poppins';
