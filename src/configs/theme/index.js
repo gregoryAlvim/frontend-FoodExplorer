@@ -11,5 +11,6 @@ export const theme = {
       FAINT_GRAY: "#E1E1E6",
       GRAY_PRIMARY: "#C4C4CC",
       GRAY_SECONDARY: "#7C7C8A",
+      FAINT_BLUE: "#82F3FF",
    }
 }
