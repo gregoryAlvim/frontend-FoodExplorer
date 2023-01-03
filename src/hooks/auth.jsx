@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 
 import { api } from '../services/api';
 
@@ -12,6 +12,9 @@ function AuthProvider({ children }) {
       try {
          const response = await api.post("/sessions", { email, password });
          const { user, token } = response.data;
+
+         localStorage.setItem("@foodexplorer:user", JSON.stringify(user));
+         localStorage.setItem("@foodexplorer:token", token);
    
          api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 
@@ -24,7 +27,22 @@ function AuthProvider({ children }) {
             alert("Não foi possível acessar sua conta, tente novamente mais tarde!");
          }
       }
-   }
+   };
+
+   useEffect(() => {
+      const user = localStorage.getItem('@foodexplorer:user');
+      const token = localStorage.getItem('@foodexplorer:token');
+
+      if ( token && user  ) {
+         api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+
+         setData({ 
+            token, 
+            user: JSON.parse(user),
+         });
+      }
+
+   }, []);
 
    return (
       <AuthContext.Provider value={{ signIn, user: data.user }}>
