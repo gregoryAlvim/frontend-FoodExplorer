@@ -7,6 +7,7 @@ import { HeaderComponent } from '../../components/Header';
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ParagraphComponent } from '../../components/Paragraph';
 import { CarouselComponent } from '../../components/Carousel';
+import { FooterComponent } from '../../components/Footer';
 
 import homeImage from '../../assets/app-icons/homeImage.png';
 
@@ -17,9 +18,9 @@ export function Home() {
    const { user } = useAuth();
 
    const [search, setSearch] = useState("");
-   const [dishes, setDishes] = useState([""]);
-   const [desserts, setDesserts] = useState([""]);
-   const [drinks, setDrinks] = useState([""]);
+   const [dishes, setDishes] = useState(["<div><div/>"]);
+   const [desserts, setDesserts] = useState(["<div><div/>"]);
+   const [drinks, setDrinks] = useState(["<div><div/>"]);
 
    useEffect(() => {
 
@@ -69,9 +70,13 @@ export function Home() {
             </CoverPageContainer>
 
             <CarouselComponent description="Pratos principais" dishes={dishes} />
-            <CarouselComponent description="Sobremesas" dishes={desserts} />
-            <CarouselComponent description="Bebidas" dishes={drinks} />
+            
+            <CarouselComponent description="Sobremesas" dishes={dishes} />
+
+            <CarouselComponent description="Bebidas" dishes={dishes} />
          </Main>
+
+         <FooterComponent />
          {console.log(".")}
       </>
    );
