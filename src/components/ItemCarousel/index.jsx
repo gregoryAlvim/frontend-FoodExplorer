@@ -4,7 +4,10 @@ import { FiHeart, FiMinus, FiPlus } from 'react-icons/fi';
 
 import { IconComponent } from '../Icon';
 import { ParagraphComponent } from '../Paragraph';
+import { ButtonComponent } from '../Button';
 import { TextButtonComponent } from '../TextButton';
+
+import noImage from '../../assets/noImage.png';
 
 import { Container, Span, Section, IncludeDishContainer } from './styles';
 
@@ -15,34 +18,34 @@ export function ItemCarouselComponent({ dishImage, name, description, price }) {
    return (
       <Container>
             <TextButtonComponent className="heartButton">
-               <FiHeart />
+               <FiHeart size={20} />
             </TextButtonComponent>
          <Section>
             
-            <IconComponent className="dishImage" icon={ dishImage } />
+            <IconComponent className="dishImage" icon={ dishImage ?? noImage } />
 
             <Span className="dishInfoName">{ `${name} >` }</Span>
 
             <ParagraphComponent className="dishDescription"> { description } </ParagraphComponent>
 
-            <Span className="dishPrice"> { price } </Span>
+            <Span className="dishPrice"> { `R$ ${price}` } </Span>
 
             <IncludeDishContainer>
-               <TextButtonComponent>
-                  <FiMinus />
+               <TextButtonComponent className="minusAndPlusButton">
+                  <FiMinus size={20} />
                </TextButtonComponent>
 
-               <ParagraphComponent>
-                  {amountDishIncluded}
+               <ParagraphComponent className="dishAmount">
+                  {String(amountDishIncluded).padStart(2, "0")}
                </ParagraphComponent>
 
-               <TextButtonComponent>
-                  <FiPlus />
+               <TextButtonComponent className="minusAndPlusButton">
+                  <FiPlus size={20} />
                </TextButtonComponent>
 
-               <TextButtonComponent>
+               <ButtonComponent className="addButton">
                   incluir
-               </TextButtonComponent>
+               </ButtonComponent>
             </IncludeDishContainer>
          </Section>
       </Container>
