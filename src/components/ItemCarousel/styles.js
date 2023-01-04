@@ -3,8 +3,8 @@ import { devices } from '../../configs/devices';
 
 export const Container = Styled.div`
    position: relative;
-   width: 30rem;
-   height: 40rem;
+   min-width: 20vw;
+   height: 100%;
 
    background: rgba(0, 0, 0, 0.32);
 
@@ -13,9 +13,9 @@ export const Container = Styled.div`
    & .heartButton {
       display: flex;
       justify-content: end;
-      padding: 1.6rem;
+      padding: 1.6rem 1.6rem 0 0;
 
-      position: absolute;
+      cursor: pointer;
    }
 `;
 
@@ -27,6 +27,10 @@ export const Span = Styled.span`
       font-size: 2.3rem;
 
       color: ${({theme}) => theme.TEXT_COLORS.FAINT_GRAY};
+
+      position: absolute;
+
+      top: 18rem;
    }
 
    &.dishPrice {
@@ -37,17 +41,31 @@ export const Span = Styled.span`
 `;
 
 export const Section = Styled.section`
+   position: relative;
    display: flex;
    flex-direction: column;
+   align-items: center;
    gap: 1.6rem;
 
    padding: 4rem;
 
    border-radius: 0.8rem;
 
+   & .dishImage {
+      width: 13rem;
+      height: 13rem;
+      border-radius: 50%;
+
+      background-size: cover;
+   }
+
    & .dishDescription {
       font-family: 'Roboto';
       font-size: 1.4rem;
+
+      margin-top: 4rem;
+
+      text-align: center;
 
       color: ${({theme}) => theme.TEXT_COLORS.GRAY_PRIMARY};
    }
@@ -55,4 +73,24 @@ export const Section = Styled.section`
 
 export const IncludeDishContainer = Styled.div`
    display: flex;
+   align-items: center;
+   gap: 1.2rem;
+
+   color: ${({theme}) => theme.TEXT_COLORS.GRAY_PRIMARY};
+
+   & .minusAndPlusButton {
+      display: flex;
+      align-items: center;
+   }
+
+   & .dishAmount {
+      font-weight: 700;
+      font-size: 2rem;
+   }
+
+   & .addButton {
+      min-width: 9rem;
+   }
+
+
 `;
