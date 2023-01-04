@@ -3,12 +3,39 @@ import Styled from 'styled-components';
 export const Container = Styled.div`
 
    position: relative;
-   
-   & .item {
-      width: 10rem;
-      height: 15rem;
 
-      background: red;
+   & .titleCarousel {
+      font-family: 'Poppins';
+      font-weight: 500;
+      font-size: 3.2rem;
+
+      margin: 5rem 0 3rem 0;
+
+      color: ${({theme}) => theme.TEXT_COLORS.FAINT_GRAY};
+   }
+
+   & .carouselContainer {
+      position: relative;
+      
+      :before {
+         background: 
+         linear-gradient(
+            to right,
+            #000A0F 3%,
+            rgba(0, 10, 15, 0.272541) 10%,
+            rgba(0, 10, 15, 0),
+            rgba(0, 10, 15, 0),
+            rgba(0, 10, 15, 0),
+            rgba(0, 10, 15, 0.272541) 90%,
+            #000A0F 97%
+         );
+         position: absolute;
+         height: 100%;
+         width: 100%;
+         z-index: 2;
+         content: "";
+      } 
+   
    }
 
    & .arrow {
@@ -23,12 +50,14 @@ export const Container = Styled.div`
    }
 
    & .arrow--left {
-      left: 5px;  
+      left: 5px; 
+      z-index: 2;
    }
 
    & .arrow--right {
       left: auto;
       right: 5px;
+       z-index: 2;
    }
 
    & .arrow--disabled {
