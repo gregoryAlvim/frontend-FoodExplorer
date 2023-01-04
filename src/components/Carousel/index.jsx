@@ -1,7 +1,10 @@
 import { useState, useEffect } from 'react';
+import { devices } from '../../configs/devices';
 
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react'
+
+import { api } from '../../services/api';
 
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ItemCarouselComponent } from '../../components/ItemCarousel';
@@ -9,19 +12,18 @@ import { ItemCarouselComponent } from '../../components/ItemCarousel';
 import { Container } from './styles';
 
 export function CarouselComponent({ description, dishes, ...rest }) {
-
-   const slidesPerView = 3;
    
    const [currentSlide, setCurrentSlide] = useState(0);
    const [loaded, setLoaded] = useState(false);
-
+   
    const [sliderRef, instanceRef] = useKeenSlider({
-      initial: 0,
-      mode: "free-snap",
-      slides: {
-         origin: "center",
-         perView: slidesPerView,
-         spacing: 0,
+      initial: 2,
+      mode: "free",
+      slides: { origin: "center", perView: 3.5, spacing: 20 },
+      range: {
+         align: true,
+         min: 1,
+         max: dishes.length - 1,
       },
       slideChanged(slider) {
          setCurrentSlide(slider.track.details.rel)
@@ -53,11 +55,11 @@ export function CarouselComponent({ description, dishes, ...rest }) {
 
    return (
       <Container>
-         <SubTitleComponent>
+         <SubTitleComponent className="titleCarousel">
             {description}
          </SubTitleComponent>
-         <div className="navigation-wrapper">
-            <div ref={sliderRef} className="keen-slider">
+         <div className="navigation-wrapper ">
+            <div ref={sliderRef} className="keen-slider carouselContainer">
                {
                   dishes.map(dish => (
                      <div key={String(dish.id)} className="keen-slider__slide">
