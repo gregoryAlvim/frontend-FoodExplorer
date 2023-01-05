@@ -44,7 +44,6 @@ export const Header = Styled.header`
    }
 
    @media ${devices.laptop} {
-      width: 100%;
       height: 100%;
 
       display: grid;
@@ -62,6 +61,7 @@ export const Header = Styled.header`
 
       & .purchaseRequestsButton {
          grid-area: MyCart;
+         width: 100%;
       }
 
       & .logOutButton {
@@ -70,25 +70,33 @@ export const Header = Styled.header`
    }
 
    @media ${devices.mobile} {
-      min-width: 35rem;
       height: 100%;
-
+      min-width: 35rem;
+      padding: 2.4rem 0;
+      
       margin: 0 auto;
 
       grid-template-rows: 10rem;
       grid-auto-columns: 10rem;
+      
+      justify-items: center;
 
       grid-template-areas:
       'Title Title Logout'
       'MyCart MyCart MyCart'
       'Search Search Search';
 
+      & .foodExplorerTitle {
+         justify-content: end;
+         min-width: 22rem;
+      }
+
       & .myFavoritesText {
          display: none;
       }
 
       & .purchaseRequestsButton {
-         width: 100%;
+         width: 80%;
       }
 
       & .logOutButton {
@@ -102,7 +110,7 @@ export const SearchContainer = Styled.div`
    align-items: center;
    gap: 1rem;
 
-   min-width: 40rem;
+   width: 80%;
    height: 5rem;
 
    padding: 1.2rem;
