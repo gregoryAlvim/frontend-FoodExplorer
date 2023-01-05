@@ -1,4 +1,5 @@
 import Styled from 'styled-components';
+import { devices } from '../../configs/devices';
 
 export const Container = Styled.div`
 
@@ -12,30 +13,43 @@ export const Container = Styled.div`
       margin: 5rem 0 3rem 0;
 
       color: ${({theme}) => theme.TEXT_COLORS.FAINT_GRAY};
+ 
    }
 
-   & .carouselContainer {
+   & .slidesContainer {
       position: relative;
-      
-      :before {
-         background: 
+      display: flex;
+   }
+
+   & .rightOpacityEffect {
+      background: 
          linear-gradient(
             to right,
-            #000A0F 3%,
-            rgba(0, 10, 15, 0.272541) 10%,
-            rgba(0, 10, 15, 0),
-            rgba(0, 10, 15, 0),
-            rgba(0, 10, 15, 0),
+            #000A0F 40%,
             rgba(0, 10, 15, 0.272541) 90%,
-            #000A0F 97%
+            rgba(0, 10, 15, 0)
          );
          position: absolute;
          height: 100%;
-         width: 100%;
-         z-index: 2;
+         width: 10rem;
+         z-index: 1;
          content: "";
-      } 
-   
+   }
+
+   & .leftOpacityEffect {
+      background: 
+         linear-gradient(
+            to left,
+            #000A0F 40%,
+            rgba(0, 10, 15, 0.272541) 90%,
+            rgba(0, 10, 15, 0)
+         );
+         position: absolute;
+         height: 100%;
+         width: 10rem;
+         z-index: 1;
+         content: "";
+         right: 0;
    }
 
    & .arrow {
@@ -51,16 +65,62 @@ export const Container = Styled.div`
 
    & .arrow--left {
       left: 5px; 
-      z-index: 2;
+      z-index: 1;
    }
 
    & .arrow--right {
       left: auto;
       right: 5px;
-       z-index: 2;
+       z-index: 1;
    }
 
    & .arrow--disabled {
       fill: rgba(255, 255, 255, 0.5);
    }
+
+   @media ${devices.laptop} {
+      & .titleCarousel {
+      font-family: 'Poppins';
+      font-weight: 500;
+      font-size: 3.2rem;
+
+      margin: 5rem 0 3rem 0;
+
+      color: ${({theme}) => theme.TEXT_COLORS.FAINT_GRAY};
+
+      text-align: center;
+ 
+      }
+
+      & .rightOpacityEffect {
+      background: 
+         linear-gradient(
+            to right,
+            #000A0F 40%,
+            rgba(0, 10, 15, 0.272541) 90%,
+            rgba(0, 10, 15, 0)
+         );
+         position: absolute;
+         height: 100%;
+         width: 10rem;
+         z-index: 1;
+         content: "";
+   }
+
+   & .leftOpacityEffect {
+      background: 
+         linear-gradient(
+            to left,
+            #000A0F 40%,
+            rgba(0, 10, 15, 0.272541) 90%,
+            rgba(0, 10, 15, 0)
+         );
+         position: absolute;
+         height: 100%;
+         width: 10rem;
+         z-index: 1;
+         content: "";
+         right: 0;
+   }
+   };
 `;
