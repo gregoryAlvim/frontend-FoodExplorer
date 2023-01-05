@@ -4,25 +4,29 @@ import { devices } from '../../configs/devices';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react'
 
-import { api } from '../../services/api';
-
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ItemCarouselComponent } from '../../components/ItemCarousel';
 
 import { Container } from './styles';
 
 export function CarouselComponent({ description, dishes, ...rest }) {
-   
+
+   const [isNarrowScreen, setIsNarrowScreen] = useState(false);
+
    const [currentSlide, setCurrentSlide] = useState(0);
    const [loaded, setLoaded] = useState(false);
    
    const [sliderRef, instanceRef] = useKeenSlider({
-      initial: 2,
+      initial: 0,
       mode: "free",
-      slides: { origin: "center", perView: 3.5, spacing: 20 },
+      slides: { 
+         origin: "center", 
+         ...(isNarrowScreen ? { perView: 1 } : { perView: 3.5 }),
+         spacing: 20
+      },
       range: {
          align: true,
-         min: 1,
+         ...(isNarrowScreen ? { perView: 0 } : { min: 1 }),
          max: dishes.length - 1,
       },
       slideChanged(slider) {
@@ -51,15 +55,30 @@ export function CarouselComponent({ description, dishes, ...rest }) {
             )}
          </svg>
       )
-   }
+   };
+
+   useEffect(() => {
+      // set initial value
+      const mediaWatcher = window.matchMedia(devices.mobile);
+
+      //watch for updates
+      function updateIsNarrowScreen(event) {
+        setIsNarrowScreen(event.matches);
+      }
+
+      mediaWatcher.addEventListener("change", updateIsNarrowScreen);
+
+    }
+   ), [isNarrowScreen];
 
    return (
       <Container>
          <SubTitleComponent className="titleCarousel">
             {description}
          </SubTitleComponent>
-         <div className="navigation-wrapper ">
-            <div ref={sliderRef} className="keen-slider carouselContainer">
+         <div className="navigation-wrapper slidesContainer">
+            <div className="rightOpacityEffect"></div>
+            <div ref={sliderRef} className="keen-slider">
                {
                   dishes.map(dish => (
                      <div key={String(dish.id)} className="keen-slider__slide">
@@ -72,6 +91,7 @@ export function CarouselComponent({ description, dishes, ...rest }) {
                   ))
                }
             </div>
+            <div className="leftOpacityEffect"></div>
 
             {loaded && instanceRef.current && (
                <>
