@@ -3,6 +3,7 @@ import { devices } from '../../configs/devices';
 
 
 export const Main = Styled.main`
+   width: 100%;
    display: flex;
    flex-direction: column;
    
