@@ -17,6 +17,16 @@ export const Container = Styled.div`
 
       cursor: pointer;
    }
+
+   @media ${devices.laptop} {
+      width: 40vw;
+      margin: 0 auto;
+   }
+
+   @media ${devices.mobile} {
+      width: 80vw;
+      margin: 0 auto;
+   }
 `;
 
 export const Span = Styled.span`
