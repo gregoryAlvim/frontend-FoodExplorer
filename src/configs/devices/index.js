@@ -1,4 +1,4 @@
-const sizes = {
+export const sizes = {
    mobile: '600px',
    laptop: '1250px',
 }
