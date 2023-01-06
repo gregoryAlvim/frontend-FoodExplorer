@@ -1,26 +1,36 @@
 import { useState, useEffect } from 'react';
-import { devices } from '../../configs/devices';
+import { useNavigate } from 'react-router-dom';
 
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react'
 
+import { devices } from '../../configs/devices';
+
+import { useAuth } from '../../hooks/auth';
+
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ItemCarouselComponent } from '../../components/ItemCarousel';
+import { AddNewDishCardComponent } from '../../components/AddNewDishCard';
 
 import { Container } from './styles';
 
 export function CarouselComponent({ description, dishes, ...rest }) {
 
+   const { user } = useAuth();
+   const isAdmin = user.role === "Admin";
+
+   const navigate = useNavigate();
+
    const [isNarrowScreen, setIsNarrowScreen] = useState(false);
 
    const [currentSlide, setCurrentSlide] = useState(0);
    const [loaded, setLoaded] = useState(false);
-   
+
    const [sliderRef, instanceRef] = useKeenSlider({
       initial: 0,
       mode: "free",
-      slides: { 
-         origin: "center", 
+      slides: {
+         origin: "center",
          ...(isNarrowScreen ? { perView: 1 } : { perView: 3.5 }),
          spacing: 20
       },
@@ -57,18 +67,24 @@ export function CarouselComponent({ description, dishes, ...rest }) {
       )
    };
 
+   function redirectToCreateNewDish() {
+      navigate('/create-dish');
+   }
+
    useEffect(() => {
       // set initial value
-      const mediaWatcher = window.matchMedia(devices.mobile);
+      const mediaWatcher = window.matchMedia(devices.laptop);
+      console.log(isNarrowScreen);
 
       //watch for updates
+
       function updateIsNarrowScreen(event) {
-        setIsNarrowScreen(event.matches);
+         setIsNarrowScreen(event.matches);
       }
 
       mediaWatcher.addEventListener("change", updateIsNarrowScreen);
 
-    }
+   }
    ), [isNarrowScreen];
 
    return (
@@ -79,6 +95,9 @@ export function CarouselComponent({ description, dishes, ...rest }) {
          <div className="navigation-wrapper slidesContainer">
             <div className="rightOpacityEffect"></div>
             <div ref={sliderRef} className="keen-slider">
+               
+                  {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
+               
                {
                   dishes.map(dish => (
                      <div key={String(dish.id)} className="keen-slider__slide">
