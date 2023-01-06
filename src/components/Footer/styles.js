@@ -41,4 +41,11 @@ export const Footer = Styled.footer`
       font-size: 1.4rem;
       line-height: 1.8rem;
    }
+
+   @media ${devices.laptop} {
+      flex-direction: column;
+      gap: 1rem;
+
+      height: 100%;
+   }
 `;
