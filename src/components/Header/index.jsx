@@ -1,4 +1,7 @@
 import { FiSearch, FiLogOut } from "react-icons/fi";
+import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../hooks/auth';
 
 import { TitleComponent } from '../../components/Title';
 import { IconComponent } from '../Icon';
@@ -8,43 +11,53 @@ import { ButtonComponent } from '../../components/Button';
 import { ReceiptIcon } from '../../assets/app-icons/Receipt/index';
 import imageIconFoodExplorer from '../../assets/PolygonIcon.png';
 
-import { Header, SearchContainer, Input } from "./styles";
+import { Container, Header, SearchContainer, Input } from "./styles";
 
 export function HeaderComponent() {
 
+   const navigate = useNavigate();
+
    let purchaseRequestsCart = 0;
+   const { signOut } = useAuth();
+
+   function handleSignOut() {
+      signOut();
+      navigate("/");
+   }
 
    return(
-      <Header>
-         <TitleComponent className="foodExplorerTitle">
-            <IconComponent icon={imageIconFoodExplorer} className="foodExplorerIcon" />
-            food explorer
-         </TitleComponent>
+      <Container>
+         <Header>
+            <TitleComponent className="foodExplorerTitle">
+               <IconComponent icon={imageIconFoodExplorer} className="foodExplorerIcon" />
+               food explorer
+            </TitleComponent>
 
-         <TextButtonComponent className="myFavoritesText">
-            Meus favoritos
-         </TextButtonComponent>
+            <TextButtonComponent className="myFavoritesText">
+               Meus favoritos
+            </TextButtonComponent>
 
-         <SearchContainer>
-            <FiSearch
-               size={20}
-            />
-            <Input
-               type="text" 
-               placeholder="Busque pelas opções de pratos" 
-            />
-         </SearchContainer>
-         
-         <ButtonComponent 
-            className="purchaseRequestsButton"
-         >
-            <ReceiptIcon />
-            {`Meu pedido (${purchaseRequestsCart})`}
-         </ButtonComponent>
+            <SearchContainer>
+               <FiSearch
+                  size={20}
+               />
+               <Input
+                  type="text" 
+                  placeholder="Busque pelas opções de pratos" 
+               />
+            </SearchContainer>
+            
+            <ButtonComponent 
+               className="purchaseRequestsButton"
+            >
+               <ReceiptIcon />
+               {`Meu pedido (${purchaseRequestsCart})`}
+            </ButtonComponent>
 
-         <TextButtonComponent className="logOutButton">
-            <FiLogOut size={20} />
-         </TextButtonComponent>
-      </Header>
+            <TextButtonComponent onClick={handleSignOut} className="logOutButton">
+               <FiLogOut size={20} />
+            </TextButtonComponent>
+         </Header>
+      </Container>
    );
 }
