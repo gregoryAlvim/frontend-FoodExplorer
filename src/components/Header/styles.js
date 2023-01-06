@@ -1,18 +1,33 @@
 import Styled from 'styled-components';
 import { devices } from '../../configs/devices';
 
-export const Header = Styled.header`
+export const Container = Styled.div`
    width: 100%;
    height: 10.4rem;
-
-   display: flex;
-   align-items: center;
-   justify-content: center;
-   gap: 3.2rem;
 
    padding: 2.4rem 12rem;
 
    background: ${({ theme }) => theme.BACKGROUND_COLORS.SECONDARY};
+
+   @media ${devices.laptop} {
+
+      height: 100%;
+   }
+
+   @media ${devices.mobile} {
+      min-width: 35rem;
+      padding: 2.4rem 0;
+      
+      margin: 0 auto;
+   }
+`;
+
+export const Header = Styled.header`
+   
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   gap: 3.2rem;
 
    & .foodExplorerIcon {
       width: 3rem;
@@ -44,37 +59,35 @@ export const Header = Styled.header`
    }
 
    @media ${devices.laptop} {
-      height: 100%;
+      justify-content: space-around;
 
       display: grid;
       grid-template:
-      'Title MyFavorite Logout'
-      'Search MyCart MyCart';
+      "Title Title myFavorite Logout"
+      "Search Search MyCart MyCart";
+
+      gap: 2rem;
 
       & .foodExplorerTitle {
          grid-area: Title;
       }
 
       & .myFavoritesText {
-         grid-area: MyFavorite;
+         grid-area: myFavorite;
+         
       }
 
       & .purchaseRequestsButton {
          grid-area: MyCart;
-         width: 100%;
       }
 
       & .logOutButton {
          grid-area: Logout;
+         
       }
    }
 
    @media ${devices.mobile} {
-      height: 100%;
-      min-width: 35rem;
-      padding: 2.4rem 0;
-      
-      margin: 0 auto;
 
       grid-template-rows: 10rem;
       grid-auto-columns: 10rem;
@@ -108,6 +121,7 @@ export const Header = Styled.header`
 export const SearchContainer = Styled.div`
    display: flex;
    align-items: center;
+   
    gap: 1rem;
 
    width: 80%;
