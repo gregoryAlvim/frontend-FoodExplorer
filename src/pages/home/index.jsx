@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 
 import { api } from '../../services/api';
-import { useAuth } from '../../hooks/auth';
 
 import { HeaderComponent } from '../../components/Header';
 import { SubTitleComponent } from '../../components/SubTitle';
@@ -14,8 +13,6 @@ import homeImage from '../../assets/app-icons/homeImage.png';
 import { Main, Image, CoverPageContainer } from './styles';
 
 export function Home() {
-
-   const { user } = useAuth();
 
    const [search, setSearch] = useState("");
    const [dishes, setDishes] = useState(["<div><div/>"]);
