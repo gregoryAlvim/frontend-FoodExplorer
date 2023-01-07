@@ -4,6 +4,8 @@ export const theme = {
       SECONDARY: "#00111A",
       TERTIARY: "#001119",
       RED_PRIMARY: "#92000E",
+      GRAY_SECONDARY: "#7C7C8A",
+      WHITE_PRIMARY: "#FFFFFF",
    },
 
    TEXT_COLORS: {
