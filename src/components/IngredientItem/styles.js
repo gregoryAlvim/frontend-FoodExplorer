@@ -1,4 +1,5 @@
 import Styled from "styled-components";
+import { devices } from '../../configs/devices';
 
 export const Container = Styled.div`
 
