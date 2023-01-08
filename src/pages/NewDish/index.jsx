@@ -50,12 +50,14 @@ export function NewDish() {
 
          const response = await api.post("dishes/create-dish", { name, description, price, category, ingredients});
          const { dishId, message } = response.data;
+
+         if (dishImage) {
+            const fileDishImage = new FormData();
+            fileDishImage.append("dishImage", dishImage);
+   
+            await api.patch(`dishes/update-dish-image/${dishId}`, fileDishImage);
+         }
         
-         const fileDishImage = new FormData();
-         fileDishImage.append("dishImage", dishImage);
-
-         await api.patch(`dishes/update-dish-image/${dishId}`, fileDishImage);
-
          alert(message);
 
          handleComebackToPreviousPage();
