@@ -13,7 +13,7 @@ import imageIconFoodExplorer from '../../assets/PolygonIcon.png';
 
 import { Container, Header, SearchContainer, Input } from "./styles";
 
-export function HeaderComponent() {
+export function HeaderComponent({onChange}) {
 
    const navigate = useNavigate();
 
@@ -44,6 +44,7 @@ export function HeaderComponent() {
                <Input
                   type="text" 
                   placeholder="Busque pelas opções de pratos" 
+                  onChange={onChange}
                />
             </SearchContainer>
             
