@@ -27,6 +27,14 @@ export const Main = Styled.main`
 
       margin: 2.4rem 0 3.2rem;
    }
+
+   @media ${devices.laptop} {
+      padding: 3.2rem 10rem 0;
+   }
+
+   @media ${devices.mobile} {
+      padding: 3.2rem 2rem 0;
+   }
 `;
 
 export const Form = Styled.form`
@@ -52,7 +60,6 @@ export const Form = Styled.form`
 
    }
 
-
    & .dishName {
       grid-area: inputName;
    }
@@ -67,6 +74,11 @@ export const Form = Styled.form`
 
    & .dishDescription {
       grid-area: inputDescription;
+   }
+
+   @media ${devices.mobile} {
+      display: flex;
+      flex-direction: column;
    }
 `;
 
@@ -103,6 +115,18 @@ export const Container = Styled.div`
 
    border-radius: 0.5rem;
    border: 1px solid ${({ theme }) => theme.TEXT_COLORS.PRIMARY };
+`;
+
+
+export const IngredientsContainer = Styled.div`
+   display: flex;
+   gap: 3.2rem;
+   justify-content: space-between;
+   margin-top: 3.2rem;
+
+   & .saveNewDishButton {
+      background: rgba(255, 255, 255, 0.1);
+   }
 `;
 
 export const ButtonsFormContainer = Styled.div`
