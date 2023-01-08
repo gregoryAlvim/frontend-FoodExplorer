@@ -18,6 +18,8 @@ export const Select = Styled.select`
    -webkit-appearance: none;
    -moz-appearance: none;
    appearance: none;
+
+   cursor: pointer;
 `;
 
 export const Option = Styled.option`
