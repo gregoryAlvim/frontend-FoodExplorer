@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react'
 
-import { devices } from '../../configs/devices';
+import { sizes, devices } from '../../configs/devices';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -14,20 +14,24 @@ import { AddNewDishCardComponent } from '../../components/AddNewDishCard';
 
 import { Container } from './styles';
 
-export function CarouselComponent({ description, dishes, ...rest }) {
+export function CarouselComponent({ selectCategory, description, dishes, ...rest }) {
 
    const { user } = useAuth();
    const isAdmin = user.role === "Admin";
 
    const navigate = useNavigate();
 
-   const [isNarrowScreen, setIsNarrowScreen] = useState(false);
+   const [checkScreenWidth, setCheckScreenWidth] = useState(window.innerWidth <= parseInt(sizes.laptop));
+
+   const [isNarrowScreen, setIsNarrowScreen] = useState(checkScreenWidth);
+
+   console.log(`${window.screen.width} <= ${parseInt(sizes.laptop)} = ${checkScreenWidth}`);
 
    const [currentSlide, setCurrentSlide] = useState(0);
    const [loaded, setLoaded] = useState(false);
 
    const [sliderRef, instanceRef] = useKeenSlider({
-      initial: 0,
+      initial: 1,
       mode: "free",
       slides: {
          origin: "center",
@@ -37,7 +41,7 @@ export function CarouselComponent({ description, dishes, ...rest }) {
       range: {
          align: true,
          ...(isNarrowScreen ? { perView: 0 } : { min: 1 }),
-         max: dishes.length - 1,
+         max: dishes.length,
       },
       slideChanged(slider) {
          setCurrentSlide(slider.track.details.rel)
@@ -72,9 +76,9 @@ export function CarouselComponent({ description, dishes, ...rest }) {
    }
 
    useEffect(() => {
+
       // set initial value
       const mediaWatcher = window.matchMedia(devices.laptop);
-      console.log(isNarrowScreen);
 
       //watch for updates
 
@@ -82,10 +86,14 @@ export function CarouselComponent({ description, dishes, ...rest }) {
          setIsNarrowScreen(event.matches);
       }
 
-      mediaWatcher.addEventListener("change", updateIsNarrowScreen);
+      function updateCheckScreenWidth() {
+         setCheckScreenWidth(window.innerWidth <= parseInt(sizes.laptop));
+      }
 
-   }
-   ), [isNarrowScreen];
+      mediaWatcher.addEventListener("change", updateIsNarrowScreen);
+      window.addEventListener("resize", updateCheckScreenWidth);
+
+   }, [isNarrowScreen, checkScreenWidth]);
 
    return (
       <Container>
@@ -95,19 +103,23 @@ export function CarouselComponent({ description, dishes, ...rest }) {
          <div className="navigation-wrapper slidesContainer">
             <div className="rightOpacityEffect"></div>
             <div ref={sliderRef} className="keen-slider">
-               
-                  {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
-               
+
+               {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
                {
-                  dishes.map(dish => (
-                     <div key={String(dish.id)} className="keen-slider__slide">
-                        <ItemCarouselComponent
-                           name={dish.name}
-                           description={dish.description}
-                           price={dish.price}
-                        />
-                     </div>
-                  ))
+                  dishes.map(dish => {
+
+                     if (dish.category === selectCategory) {
+                        return <div key={String(dish.id)} className="keen-slider__slide">
+                           <ItemCarouselComponent
+                              dishId={dish.id}
+                              name={dish.name}
+                              description={dish.description}
+                              price={dish.price}
+                              dishImage={dish.dishImage}
+                           />
+                        </div>
+                     }
+                  })
                }
             </div>
             <div className="leftOpacityEffect"></div>
