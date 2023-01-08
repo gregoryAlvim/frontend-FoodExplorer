@@ -15,9 +15,9 @@ import { Main, Image, CoverPageContainer } from './styles';
 export function Home() {
 
    const [search, setSearch] = useState("");
-   const [dishes, setDishes] = useState(["<div><div/>"]);
-   const [desserts, setDesserts] = useState(["<div><div/>"]);
-   const [drinks, setDrinks] = useState(["<div><div/>"]);
+   const [dishes, setDishes] = useState([""]);
+   const [desserts, setDesserts] = useState([""]);
+   const [drinks, setDrinks] = useState([""]);
 
    useEffect(() => {
 
@@ -25,7 +25,7 @@ export function Home() {
          try {
 
             const response = await api.get(`dishes/index-dishes?dishName${search}`);
-
+            // setDishes(response.data);
             const foodData = response.data.filter((dish) => dish.category === "Comida");
             setDishes(foodData);
 
@@ -66,11 +66,11 @@ export function Home() {
                </ParagraphComponent>
             </CoverPageContainer>
 
-            <CarouselComponent description="Pratos principais" dishes={dishes} />
+            <CarouselComponent description="Pratos principais" selectCategory="Comida" dishes={dishes} />
             
-            <CarouselComponent description="Sobremesas" dishes={dishes} />
+            <CarouselComponent description="Sobremesas" selectCategory="Sobremesa" dishes={desserts} />
 
-            <CarouselComponent description="Bebidas" dishes={dishes} />
+            <CarouselComponent description="Bebidas" selectCategory="Bebida" dishes={drinks} />
          </Main>
 
          <FooterComponent />
