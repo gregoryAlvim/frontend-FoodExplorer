@@ -44,6 +44,5 @@ export const Input = Styled.input`
 export const Button = Styled.button`
    border: none;
    background: none;
-   padding0
    cursor: pointer;
 `;
