@@ -1,12 +1,14 @@
 import { Select, Option } from './styles';
 
-export function SelectComponent({ ...rest }) {
+export function SelectComponent({ optionSelected, ...rest }) {
+   
    return (
       <Select
          {...rest}
       >
-         <Option value="Comida" hidden defaultValue>
-            Tipo do prato
+         <Option hidden defaultValue>
+           { optionSelected ? optionSelected : "Tipo do prato"}
+           
          </Option>
 
          <Option value="Comida">
