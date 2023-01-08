@@ -9,14 +9,6 @@ export const Container = Styled.div`
    background: rgba(0, 0, 0, 0.32);
 
    border: 1px solid rgba(0, 0, 0, 0.65);
-   
-   & .heartButton {
-      display: flex;
-      justify-content: end;
-      padding: 1.6rem 1.6rem 0 0;
-
-      cursor: pointer;
-   }
 
    @media ${devices.laptop} {
       width: 40vw;
@@ -101,6 +93,20 @@ export const IncludeDishContainer = Styled.div`
    & .addButton {
       min-width: 9rem;
    }
+`;
 
+export const ButtonsContainer = Styled.div`
+   display: flex;
+   align-items: center;
+   justify-content: end;
 
+   & .buttons {
+      display: flex;
+      padding: 1.6rem 1.6rem 0 0;
+      justify-content: end;
+
+      width: 5rem;
+
+      cursor: pointer;
+   }
 `;
