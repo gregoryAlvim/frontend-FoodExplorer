@@ -15,7 +15,7 @@ import { TextareaComponent } from '../../components/Textarea';
 import { ButtonComponent } from '../../components/Button';
 import { FooterComponent } from '../../components/Footer';
 
-import { Main, Form, Span, Input, Container, ButtonsFormContainer } from './styles';
+import { Main, Form, Span, Input, Container, IngredientsContainer, ButtonsFormContainer } from './styles';
 
 export function NewDish() {
 
@@ -28,6 +28,7 @@ export function NewDish() {
    const [price, setPrice] = useState("");
    const [category, setCategory] = useState("");
    const [description, setDescription] = useState("");
+   const [dishImage, setDishImage] = useState(null);
 
    function handleAddIngredient() {
       setIngredients(prevState => [...prevState, newIngredient]);
@@ -43,16 +44,32 @@ export function NewDish() {
       navigate("/");
    }
 
-   function handleCreateNewDish() {
-      // if (!name || !price || !description) {
-      //    return alert("");
-      // }
+   async function handleCreateNewDish() {
+     
+      try {
 
-      api("create-dish", {
+         const response = await api.post("dishes/create-dish", { name, description, price, category, ingredients});
+         const { dishId, message } = response.data;
+        
+         const fileDishImage = new FormData();
+         fileDishImage.append("dishImage", dishImage);
 
-      })
+         await api.patch(`dishes/update-dish-image/${dishId}`, fileDishImage);
 
+         alert(message);
 
+         handleComebackToPreviousPage();
+
+      } catch (error) {
+
+         if (error.response) {
+            alert(error.response.data.message);
+         } else {
+            alert(" Algo deu errado ao buscar os pratos! ");
+         }
+
+      }
+   
    }
 
    return (
@@ -69,8 +86,11 @@ export function NewDish() {
                   Imagem do prato
                   <Container className="dishImageContainer">
                      <FiUpload size={20} />
-                     Selecionar imagem
-                     <Input className="dishInputImage" type="file" />
+                     {dishImage ? dishImage.name : "Selecionar imagem"}
+                     <Input 
+                        className="dishInputImage" 
+                        type="file"
+                        onChange={(event) => setDishImage(event.target.files[0])} />
                   </Container>
                </LabelComponent>
 
@@ -94,7 +114,7 @@ export function NewDish() {
                <LabelComponent className="dishIngredients">
 
                   Ingredientes
-                  <Container>
+                  <Container className="IngredientsContainer">
                      {
                         ingredients.map((ingredient, index) => (
                            <IngredientItemComponent
@@ -133,16 +153,22 @@ export function NewDish() {
                   <TextareaComponent
                      type="textarea"
                      placeholder="Fale brevemente sobre o prato, seus ingredientes e composição"
+                     onChange={(event) => setDescription(event.target.value)}
                   />
                </LabelComponent>
 
             </Form>
             <ButtonsFormContainer>
-               <ButtonComponent className="saveNewDishButton">
+               <ButtonComponent 
+                  className="saveNewDishButton"
+                  onClick={handleCreateNewDish}
+               >
                   Salvar
                </ButtonComponent>
 
-               <ButtonComponent>
+               <ButtonComponent
+                  onClick={handleComebackToPreviousPage}
+               >
                   Cancelar
                </ButtonComponent>
             </ButtonsFormContainer>
