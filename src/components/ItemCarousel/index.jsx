@@ -28,6 +28,13 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
       navigate(`/update-dish/${dishId}`);
    }
 
+   async function handleDeleteDish() {
+      const response = await api.delete(`/dishes/delete-dish/${dishId}`);
+
+      alert(response.data);
+      navigate(`/delete-dish/${dishId}`);
+   }
+
    return (
       <Container>
          <ButtonsContainer>
@@ -45,7 +52,10 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
             }
             
             {
-               isAdmin ? <TextButtonComponent className="buttons">
+               isAdmin ? <TextButtonComponent 
+                  className="buttons"
+                  onClick={handleDeleteDish}
+               >
                   <FiX color={"#92000E"} size={20} />
                </TextButtonComponent> : null
             }
