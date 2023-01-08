@@ -77,6 +77,11 @@ export const Form = Styled.form`
       grid-area: inputDescription;
    }
 
+   @media ${devices.laptop} {
+      display: flex;
+      flex-direction: column;
+   }
+
    @media ${devices.mobile} {
       display: flex;
       flex-direction: column;
@@ -116,18 +121,6 @@ export const Container = Styled.div`
 
    border-radius: 0.5rem;
    border: 1px solid ${({ theme }) => theme.TEXT_COLORS.PRIMARY };
-`;
-
-
-export const IngredientsContainer = Styled.div`
-   display: flex;
-   gap: 3.2rem;
-   justify-content: space-between;
-   margin-top: 3.2rem;
-
-   & .saveNewDishButton {
-      background: rgba(255, 255, 255, 0.1);
-   }
 `;
 
 export const ButtonsFormContainer = Styled.div`
