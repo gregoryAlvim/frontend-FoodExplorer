@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-
+import { useNavigate, useParams } from 'react-router-dom';
 import 'keen-slider/keen-slider.min.css';
-import { useKeenSlider } from 'keen-slider/react'
+import { useKeenSlider } from 'keen-slider/react';
+
+import { api } from '../../services/api';
 
 import { sizes, devices } from '../../configs/devices';
-
 import { useAuth } from '../../hooks/auth';
+
 
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ItemCarouselComponent } from '../../components/ItemCarousel';
@@ -14,18 +15,17 @@ import { AddNewDishCardComponent } from '../../components/AddNewDishCard';
 
 import { Container } from './styles';
 
-export function CarouselComponent({ selectCategory, description, dishes, ...rest }) {
+export function CarouselComponent({ searchHeader, selectCategory, description, ...rest }) {
 
    const { user } = useAuth();
-   const isAdmin = user.role === "Admin";
-
    const navigate = useNavigate();
-
+   const params = useParams();
+   const isAdmin = user.role === "Admin";
+   const [search, setSearch] = useState("");
+   const [dishes, setDishes] = useState([""]);
+ 
    const [checkScreenWidth, setCheckScreenWidth] = useState(window.innerWidth <= parseInt(sizes.laptop));
-
    const [isNarrowScreen, setIsNarrowScreen] = useState(checkScreenWidth);
-
-   console.log(`${window.screen.width} <= ${parseInt(sizes.laptop)} = ${checkScreenWidth}`);
 
    const [currentSlide, setCurrentSlide] = useState(0);
    const [loaded, setLoaded] = useState(false);
@@ -77,10 +77,19 @@ export function CarouselComponent({ selectCategory, description, dishes, ...rest
 
    useEffect(() => {
 
-      // set initial value
-      const mediaWatcher = window.matchMedia(devices.laptop);
+      async function fetchDishes() {
+         const response = await api.get(`dishes/index-dishes?dishName${search}`);
+         setDishes(response.data.filter(dish => dish.category == selectCategory));
+         navigate("/");
+      }
+   
+      fetchDishes();
+   }, [params.id ? params.id : null, search]);
 
-      //watch for updates
+
+   useEffect(() => {
+      
+      const mediaWatcher = window.matchMedia(devices.laptop);
 
       function updateIsNarrowScreen(event) {
          setIsNarrowScreen(event.matches);
@@ -105,11 +114,10 @@ export function CarouselComponent({ selectCategory, description, dishes, ...rest
             <div ref={sliderRef} className="keen-slider">
 
                {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
+               
                {
-                  dishes.map(dish => {
-
-                     if (dish.category === selectCategory) {
-                        return <div key={String(dish.id)} className="keen-slider__slide">
+                  dishes && dishes.map(dish => (
+                        <div key={String(dish.id)} className="keen-slider__slide">
                            <ItemCarouselComponent
                               dishId={dish.id}
                               name={dish.name}
@@ -118,8 +126,7 @@ export function CarouselComponent({ selectCategory, description, dishes, ...rest
                               dishImage={dish.dishImage}
                            />
                         </div>
-                     }
-                  })
+                  ))
                }
             </div>
             <div className="leftOpacityEffect"></div>
@@ -139,8 +146,7 @@ export function CarouselComponent({ selectCategory, description, dishes, ...rest
                         e.stopPropagation() || instanceRef.current?.next()
                      }
                      disabled={
-                        currentSlide ===
-                        instanceRef.current.track.details.slides.length - 1
+                        currentSlide === instanceRef.current.track.details.slides.length - 1
                      }
                   />
                </>
