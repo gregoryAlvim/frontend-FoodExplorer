@@ -31,7 +31,7 @@ export const Button = Styled.button`
 
 export const Container = Styled.div`
    min-width: 20vw;
-   height: 100%;
+   height: 46rem;
 
    background: rgba(0, 0, 0, 0.32);
 
