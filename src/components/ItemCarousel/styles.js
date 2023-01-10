@@ -4,7 +4,7 @@ import { devices } from '../../configs/devices';
 export const Container = Styled.div`
    position: relative;
    min-width: 20vw;
-   height: 100%;
+   height: 46rem;
 
    background: rgba(0, 0, 0, 0.32);
 
@@ -53,6 +53,8 @@ export const Section = Styled.section`
 
    border-radius: 0.8rem;
 
+   cursor: pointer;
+
    & .dishImage {
       width: 13rem;
       height: 13rem;
@@ -71,12 +73,19 @@ export const Section = Styled.section`
 
       color: ${({theme}) => theme.TEXT_COLORS.GRAY_PRIMARY};
    }
+
+   &:hover {
+      transition-delay: 0.1s;
+      opacity: 0.7;
+   }
 `;
 
 export const IncludeDishContainer = Styled.div`
    display: flex;
    align-items: center;
    gap: 1.2rem;
+
+   margin: 0 7rem;
 
    color: ${({theme}) => theme.TEXT_COLORS.GRAY_PRIMARY};
 
@@ -110,3 +119,16 @@ export const ButtonsContainer = Styled.div`
       cursor: pointer;
    }
 `;
+
+export const ItemButton = Styled.button`
+
+   background: none;
+   border: none;
+
+   cursor: pointer;
+
+   &:focus {
+      transition-delay: 0.1s;
+      opacity: 0.7;
+   }
+`
