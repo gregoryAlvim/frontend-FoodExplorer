@@ -3,26 +3,19 @@ import { useNavigate, useParams } from 'react-router-dom';
 import 'keen-slider/keen-slider.min.css';
 import { useKeenSlider } from 'keen-slider/react';
 
-import { api } from '../../services/api';
-
 import { sizes, devices } from '../../configs/devices';
 import { useAuth } from '../../hooks/auth';
 
-
 import { SubTitleComponent } from '../../components/SubTitle';
-import { ItemCarouselComponent } from '../../components/ItemCarousel';
 import { AddNewDishCardComponent } from '../../components/AddNewDishCard';
 
 import { Container } from './styles';
 
-export function CarouselComponent({ searchHeader, selectCategory, description, ...rest }) {
+export function CarouselComponent({ children, arraylength, description, ...rest }) {
 
    const { user } = useAuth();
    const navigate = useNavigate();
-   const params = useParams();
    const isAdmin = user.role === "Admin";
-   const [search, setSearch] = useState("");
-   const [dishes, setDishes] = useState([""]);
  
    const [checkScreenWidth, setCheckScreenWidth] = useState(window.innerWidth <= parseInt(sizes.laptop));
    const [isNarrowScreen, setIsNarrowScreen] = useState(checkScreenWidth);
@@ -41,7 +34,7 @@ export function CarouselComponent({ searchHeader, selectCategory, description, .
       range: {
          align: true,
          ...(isNarrowScreen ? { perView: 0 } : { min: 1 }),
-         max: dishes.length,
+         max: arraylength,
       },
       slideChanged(slider) {
          setCurrentSlide(slider.track.details.rel)
@@ -75,16 +68,16 @@ export function CarouselComponent({ searchHeader, selectCategory, description, .
       navigate('/create-dish');
    }
 
-   useEffect(() => {
+   // useEffect(() => {
 
-      async function fetchDishes() {
-         const response = await api.get(`dishes/index-dishes?dishName${search}`);
-         setDishes(response.data.filter(dish => dish.category == selectCategory));
-         navigate("/");
-      }
+   //    async function fetchDishes() {
+   //       const response = await api.get(`dishes/index-dishes?dishName${search}`);
+   //       setDishes(response.data.filter(dish => dish.category == selectCategory));
+   //       navigate("/");
+   //    }
    
-      fetchDishes();
-   }, [params.id ? params.id : null, search]);
+   //    fetchDishes();
+   // }, [params.id ? params.id : null, search]);
 
 
    useEffect(() => {
@@ -115,7 +108,7 @@ export function CarouselComponent({ searchHeader, selectCategory, description, .
 
                {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
                
-               {
+               {/* {
                   dishes && dishes.map(dish => (
                         <div key={String(dish.id)} className="keen-slider__slide">
                            <ItemCarouselComponent
@@ -127,7 +120,8 @@ export function CarouselComponent({ searchHeader, selectCategory, description, .
                            />
                         </div>
                   ))
-               }
+               } */}
+                  {children}
             </div>
             <div className="leftOpacityEffect"></div>
 
