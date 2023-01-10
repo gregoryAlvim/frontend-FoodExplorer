@@ -11,7 +11,7 @@ import { TextButtonComponent } from '../TextButton';
 
 import noImage from '../../assets/noImage.png';
 
-import { Container, Span, Section, IncludeDishContainer, ButtonsContainer } from './styles';
+import { Container, Span, Section, IncludeDishContainer, ButtonsContainer, ItemButton } from './styles';
 
 export function ItemCarouselComponent({ dishId ,dishImage, name, description, price }) {
 
@@ -26,6 +26,10 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
 
    function redirectToUpdateDish() {
       navigate(`/update-dish/${dishId}`);
+   }
+
+   function redirectToDetailDish() {
+      navigate(`/detail-dish/${dishId}`);
    }
 
    async function handleDeleteDish() {
@@ -61,7 +65,7 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
             }
          </ButtonsContainer>
 
-         <Section>
+         <Section onClick={redirectToDetailDish}>
             
             <IconComponent className="dishImage" icon={dishImageURL} />
 
@@ -71,6 +75,7 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
 
             <Span className="dishPrice"> { `R$ ${price}` } </Span>
 
+         </Section>
             <IncludeDishContainer>
                <TextButtonComponent className="minusAndPlusButton">
                   <FiMinus size={20} />
@@ -88,7 +93,6 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
                   incluir
                </ButtonComponent>
             </IncludeDishContainer>
-         </Section>
       </Container>
    );
 }
