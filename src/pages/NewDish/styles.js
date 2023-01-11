@@ -2,7 +2,7 @@ import Styled from 'styled-components';
 import { devices } from '../../configs/devices';
 
 export const Main = Styled.main`
-   padding: 3.2rem 30rem 0;
+   padding: 13rem 30rem 0;
 
    display: flex;
    flex-direction: column;
@@ -29,11 +29,11 @@ export const Main = Styled.main`
    }
 
    @media ${devices.laptop} {
-      padding: 3.2rem 10rem 0;
+      padding: 15rem 10rem 0;
    }
 
    @media ${devices.mobile} {
-      padding: 3.2rem 2rem 0;
+      padding: 30rem 2rem 0;
    }
 `;
 
