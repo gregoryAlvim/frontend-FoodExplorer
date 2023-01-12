@@ -1,5 +1,6 @@
-import { FiHeart, FiEdit, FiMinus, FiPlus, FiX } from 'react-icons/fi';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { FiHeart, FiEdit, FiMinus, FiPlus, FiX } from 'react-icons/fi';
 
 import { api } from '../../services/api';
 import { useAuth } from '../../hooks/auth';
@@ -13,16 +14,16 @@ import noImage from '../../assets/noImage.png';
 
 import { Container, Span, Section, IncludeDishContainer, ButtonsContainer, ItemButton } from './styles';
 
-export function ItemCarouselComponent({ dishId ,dishImage, name, description, price }) {
+export function ItemCarouselComponent({ dishId ,dishImage, name, description, price, handleSetMyRequests }) {
 
    const navigate = useNavigate();
+
    const { user } = useAuth();
    
-   const isAdmin = user.role === "Admin";
-   
-   const dishImageURL = dishImage ? `${api.defaults.baseURL}/files/${dishImage}` : noImage;
+   const [amountDish, setAmountDish] = useState(1);
 
-   let amountDishIncluded = 1;
+   const isAdmin = user.role === "Admin";
+   const dishImageURL = dishImage ? `${api.defaults.baseURL}/files/${dishImage}` : noImage;
 
    function redirectToUpdateDish() {
       navigate(`/update-dish/${dishId}`);
@@ -30,6 +31,14 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
 
    function redirectToDetailDish() {
       navigate(`/detail-dish/${dishId}`);
+   }
+
+   function handleDecreaseAmountDish() {
+      amountDish <= 1 ? setAmountDish(1) : setAmountDish(amountDish - 1);
+   }
+
+   function handleIncreaseAmountDish() {
+         setAmountDish(amountDish + 1);
    }
 
    async function handleDeleteDish() {
@@ -77,19 +86,28 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
 
          </Section>
             <IncludeDishContainer>
-               <TextButtonComponent className="minusAndPlusButton">
+               <TextButtonComponent 
+                  className="minusAndPlusButton"
+                  onClick={handleDecreaseAmountDish}
+               >
                   <FiMinus size={20} />
                </TextButtonComponent>
 
                <ParagraphComponent className="dishAmount">
-                  {String(amountDishIncluded).padStart(2, "0")}
+                  {String(amountDish).padStart(2, "0")}
                </ParagraphComponent>
 
-               <TextButtonComponent className="minusAndPlusButton">
+               <TextButtonComponent 
+                  className="minusAndPlusButton"
+                  onClick={handleIncreaseAmountDish}
+               >
                   <FiPlus size={20} />
                </TextButtonComponent>
 
-               <ButtonComponent className="addButton">
+               <ButtonComponent 
+                  className="addButton"
+                  onClick={() => handleSetMyRequests({dishImageURL, amountDish, name, price})}
+               >
                   incluir
                </ButtonComponent>
             </IncludeDishContainer>
