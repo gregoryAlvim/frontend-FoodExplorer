@@ -9,7 +9,7 @@ export const Footer = Styled.footer`
    align-items: center;
    justify-content: space-between;
 
-   margin-top: 9rem;
+   margin-top: 8rem;
 
    padding: 2.4rem 12rem;
 
@@ -46,6 +46,15 @@ export const Footer = Styled.footer`
       flex-direction: column;
       gap: 1rem;
 
-      height: 100%;
+      padding: 2rem 8rem;
+
+      position: absolute;
+
+      height: 10rem;
+   }
+
+   @media ${devices.mobile} {
+      padding: 2rem 5rem;
+      height: 13rem;
    }
 `;
