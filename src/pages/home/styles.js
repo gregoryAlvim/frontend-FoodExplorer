@@ -1,19 +1,23 @@
 import Styled from 'styled-components';
 import { devices } from '../../configs/devices';
 
-
 export const Main = Styled.main`
    width: 100%;
    display: flex;
    flex-direction: column;
    
-   padding: 0 12.4rem;
+   padding: 10rem 12.4rem;
 
    @media ${devices.laptop} {
       max-width: 65rem;
-      margin: 0 auto;
+      
+      margin: 15rem auto 0;
 
       padding: 0;
+   }
+
+   @media ${devices.mobile} {
+      margin: 30rem auto 0;
    }
 `;
 
@@ -29,7 +33,7 @@ export const CoverPageContainer = Styled.div`
    background: linear-gradient(180deg, #091E26 0%, #00131C 100%);
    border-radius: 0.8rem;
 
-   color: ${({theme}) => theme.TEXT_COLORS.FAINT_GRAY};
+   color: ${({ theme }) => theme.TEXT_COLORS.FAINT_GRAY};
 
    & .subtitle {
       display: ;
