@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { api } from '../../services/api';
-import { ItemCarouselComponent } from '../../components/ItemCarousel';
 
+import { ItemCarouselComponent } from '../../components/ItemCarousel';
 import { HeaderComponent } from '../../components/Header';
 import { SubTitleComponent } from '../../components/SubTitle';
 import { ParagraphComponent } from '../../components/Paragraph';
@@ -21,6 +21,11 @@ export function Home() {
 
    const [search, setSearch] = useState("");
    const [dishes, setDishes] = useState([""]);
+   const [myRequest, setMyRequest] = useState([]);
+
+   function handleSetMyRequests(data) {
+      setMyRequest([...myRequest, data]);
+   }
 
    useEffect(() => {
 
@@ -30,13 +35,15 @@ export function Home() {
       }
 
       fetchDishes();
+      
    }, [search, params.id ? params.id : null]);
-
 
    return (
       <>
          <HeaderComponent
             onChange={(event) => setSearch(event.target.value)}
+            quantityOrdersCart={myRequest.length}
+            myRequestData={JSON.stringify(myRequest)}
          />
 
          <Main>
@@ -52,12 +59,6 @@ export function Home() {
                </ParagraphComponent>
             </CoverPageContainer>
 
-            {/* <CarouselComponent description="Pratos principais" selectCategory="Comida" searchHeader={search} />
-            
-            <CarouselComponent description="Sobremesas" selectCategory="Sobremesa" searchHeader={search} />
-
-            <CarouselComponent description="Bebidas" selectCategory="Bebida" searchHeader={search} /> */}
-
             <CarouselComponent
                description="Pratos principais"
                arraylength={dishes.filter(dish => dish.category == "Comida").length}
@@ -71,6 +72,7 @@ export function Home() {
                            description={dish.description}
                            price={dish.price}
                            dishImage={dish.dishImage}
+                           handleSetMyRequests={handleSetMyRequests}
                         />
                      </div>
                   ))
@@ -90,6 +92,7 @@ export function Home() {
                            description={dish.description}
                            price={dish.price}
                            dishImage={dish.dishImage}
+                           handleSetMyRequests={handleSetMyRequests}
                         />
                      </div>
                   ))
@@ -109,6 +112,7 @@ export function Home() {
                            description={dish.description}
                            price={dish.price}
                            dishImage={dish.dishImage}
+                           handleSetMyRequests={handleSetMyRequests}
                         />
                      </div>
                   ))
