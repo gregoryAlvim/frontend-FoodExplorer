@@ -1,5 +1,6 @@
+import { useState, useEffect } from 'react';
+import { createSearchParams, useNavigate } from 'react-router-dom';
 import { FiSearch, FiLogOut } from "react-icons/fi";
-import { useNavigate } from 'react-router-dom';
 
 import { useAuth } from '../../hooks/auth';
 
@@ -13,17 +14,34 @@ import imageIconFoodExplorer from '../../assets/PolygonIcon.png';
 
 import { Container, Header, SearchContainer, Input } from "./styles";
 
-export function HeaderComponent({onChange}) {
+export function HeaderComponent({onChange, quantityOrdersCart = 0, myRequestData}) {
 
    const navigate = useNavigate();
 
-   let purchaseRequestsCart = 0;
-   const { signOut } = useAuth();
+   const [quantityOrdersShoppingCart, setQuantityOrdersShoppingCart] = useState(quantityOrdersCart);
+
+   const { user, signOut } = useAuth();
+   const isAdmin = user.role === "Admin";
 
    function handleSignOut() {
       signOut();
       navigate("/");
    }
+
+   function redirectToMyRequest() {
+      navigate({
+         pathname: `/my-request`,
+         search: createSearchParams({requestData: myRequestData}).toString()
+      });
+   }
+
+   function redirectToPurchaseRequests() {
+      navigate(`/purchase-requests`);
+   }
+
+   useEffect(() => {
+      setQuantityOrdersShoppingCart(quantityOrdersCart);
+   }, [quantityOrdersCart]);
 
    return(
       <Container>
@@ -50,9 +68,10 @@ export function HeaderComponent({onChange}) {
             
             <ButtonComponent 
                className="purchaseRequestsButton"
+               onClick={ isAdmin ? redirectToPurchaseRequests : redirectToMyRequest }
             >
                <ReceiptIcon />
-               {`Meu pedido (${purchaseRequestsCart})`}
+               { isAdmin ? `Pedidos (${quantityOrdersShoppingCart})` : `Meu pedido (${quantityOrdersShoppingCart})`}
             </ButtonComponent>
 
             <TextButtonComponent onClick={handleSignOut} className="logOutButton">
