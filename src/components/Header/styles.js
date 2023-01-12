@@ -5,18 +5,25 @@ export const Container = Styled.div`
    width: 100%;
    height: 10.4rem;
 
+   grid-area: header;
+
+   position: fixed;
+   z-index: 3;
+   top: 0;
+
    padding: 2.4rem 12rem;
 
    background: ${({ theme }) => theme.BACKGROUND_COLORS.SECONDARY};
 
    @media ${devices.laptop} {
-
-      height: 100%;
+      height: 15rem;
    }
 
    @media ${devices.mobile} {
       min-width: 35rem;
       padding: 2.4rem 0;
+
+      height: 30rem;
       
       margin: 0 auto;
    }
@@ -46,12 +53,12 @@ export const Header = Styled.header`
    }
 
    & .myFavoritesText {
-      min-width: 12rem;
+      width: 35rem;
       color: ${({ theme }) => theme.TEXT_COLORS.FAINT_GRAY};
    }
 
    & .purchaseRequestsButton {
-      min-width: 20rem;
+      width: 45rem;
    }
 
    & .logOutButton {
@@ -74,11 +81,13 @@ export const Header = Styled.header`
 
       & .myFavoritesText {
          grid-area: myFavorite;
+         width: 15rem;
          
       }
 
       & .purchaseRequestsButton {
          grid-area: MyCart;
+         width: 35rem;
       }
 
       & .logOutButton {
@@ -142,10 +151,11 @@ export const SearchContainer = Styled.div`
 
    @media ${devices.laptop} {
       grid-area: Search;
+      width: 35rem;
    }
 
    @media ${devices.mobile} {
-      min-width: 1rem;
+      width: 80%;
    };
 `;
 
