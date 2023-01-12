@@ -7,6 +7,7 @@ import { sizes, devices } from '../../configs/devices';
 import { useAuth } from '../../hooks/auth';
 
 import { SubTitleComponent } from '../../components/SubTitle';
+import { ItemCarouselComponent } from '../../components/ItemCarousel';
 import { AddNewDishCardComponent } from '../../components/AddNewDishCard';
 
 import { Container } from './styles';
@@ -68,18 +69,6 @@ export function CarouselComponent({ children, arraylength, description, ...rest 
       navigate('/create-dish');
    }
 
-   // useEffect(() => {
-
-   //    async function fetchDishes() {
-   //       const response = await api.get(`dishes/index-dishes?dishName${search}`);
-   //       setDishes(response.data.filter(dish => dish.category == selectCategory));
-   //       navigate("/");
-   //    }
-   
-   //    fetchDishes();
-   // }, [params.id ? params.id : null, search]);
-
-
    useEffect(() => {
       
       const mediaWatcher = window.matchMedia(devices.laptop);
@@ -105,23 +94,10 @@ export function CarouselComponent({ children, arraylength, description, ...rest 
          <div className="navigation-wrapper slidesContainer">
             <div className="rightOpacityEffect"></div>
             <div ref={sliderRef} className="keen-slider">
-
-               {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : null}
+               {isAdmin ? <div className="keen-slider__slide"><AddNewDishCardComponent onClick={redirectToCreateNewDish} /></div> : <div className="keen-slider__slide"></div>}
                
-               {/* {
-                  dishes && dishes.map(dish => (
-                        <div key={String(dish.id)} className="keen-slider__slide">
-                           <ItemCarouselComponent
-                              dishId={dish.id}
-                              name={dish.name}
-                              description={dish.description}
-                              price={dish.price}
-                              dishImage={dish.dishImage}
-                           />
-                        </div>
-                  ))
-               } */}
-                  {children}
+               {children}
+
             </div>
             <div className="leftOpacityEffect"></div>
 
