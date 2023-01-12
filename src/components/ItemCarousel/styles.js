@@ -49,7 +49,7 @@ export const Section = Styled.section`
    align-items: center;
    gap: 1.6rem;
 
-   padding: 4rem;
+   padding: 3rem 4rem;
 
    border-radius: 0.8rem;
 
@@ -83,15 +83,16 @@ export const Section = Styled.section`
 export const IncludeDishContainer = Styled.div`
    display: flex;
    align-items: center;
-   gap: 1.2rem;
+   justify-content: center;
 
-   margin: 0 7rem;
+   gap: 1.2rem;
 
    color: ${({theme}) => theme.TEXT_COLORS.GRAY_PRIMARY};
 
    & .minusAndPlusButton {
       display: flex;
       align-items: center;
+      width: 3rem;
    }
 
    & .dishAmount {
@@ -100,7 +101,7 @@ export const IncludeDishContainer = Styled.div`
    }
 
    & .addButton {
-      min-width: 9rem;
+      width: 8rem;
    }
 `;
 
