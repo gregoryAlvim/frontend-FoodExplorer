@@ -1,19 +1,23 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FiMinus, FiPlus } from 'react-icons/fi';
 
 import { api } from '../../services/api';
 
 import { HeaderComponent } from '../../components/Header';
 import { TextButtonComponent } from '../../components/TextButton';
+import { ButtonComponent } from '../../components/Button';
 import { IconComponent } from '../../components/Icon';
 import { ParagraphComponent } from '../../components/Paragraph';
 import { Ingredients } from '../../components/Ingredients';
 import { FooterComponent } from '../../components/Footer';
 
-import { Main, Container, DishInfoContainer, Span } from './styles';
+import { Main, Container, Span, PriceAndIncludeContainer, DishInfoContainer, IncludeDishContainer, IncludeDishButtonsContainer } from './styles';
 
 export function DetailDish() {
+
+   let amountDishIncluded = 1;
 
    const navigate = useNavigate();
    const params = useParams();
@@ -40,22 +44,47 @@ export function DetailDish() {
          <Main>
             <TextButtonComponent onClick={handleComebackToPreviousPage} className="backButton">{"< voltar"}</TextButtonComponent>
             {
-               dish && <Container>
+               dish && <Container className="dishData">
                   <IconComponent className="dishImage" icon={dish.dishImage ? `${api.defaults.baseURL}/files/${dish.dishImage}` : noImage} />
 
                   <DishInfoContainer>
 
-                     <Span className="dishInfoName">{ `${dish.name} >` }</Span>
-                     <ParagraphComponent className="dishDescription"> { dish.description } </ParagraphComponent>
+                     <Span className="dishInfoName">{`${dish.name} >`}</Span>
+                     <ParagraphComponent className="dishDescription"> {dish.description} </ParagraphComponent>
 
                      <Ingredients ingredientsData={dish.ingredientsData} />
 
-                     <Span className="dishPrice"> { `R$ ${dish.price}` } </Span>
+
+                     <PriceAndIncludeContainer>
+
+                        <Span className="dishPrice"> {`R$ ${dish.price}`} </Span>
+
+                        <IncludeDishContainer>
+                           <IncludeDishButtonsContainer>
+                              <TextButtonComponent className="minusAndPlusButton">
+                                 <FiMinus size={20} />
+                              </TextButtonComponent>
+
+                              <ParagraphComponent className="dishAmount">
+                                 {String(amountDishIncluded).padStart(2, "0")}
+                              </ParagraphComponent>
+
+                              <TextButtonComponent className="minusAndPlusButton">
+                                 <FiPlus size={20} />
+                              </TextButtonComponent>
+                           </IncludeDishButtonsContainer>
+
+                           <ButtonComponent className="addButton">
+                              incluir
+                           </ButtonComponent>
+                        </IncludeDishContainer>
+                        
+                     </PriceAndIncludeContainer>
                   </DishInfoContainer>
                </Container>
             }
          </Main>
-         <FooterComponent />
+         <FooterComponent className="footerComponent" />
       </>
    );
 }
