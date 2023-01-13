@@ -12,6 +12,8 @@ export const Container = Styled.div`
     width: 4.7rem;
     height: 5.9rem;
     margin: 0 auto;
+
+    border-radius: 30%;
   }
 
   .ingredientName {

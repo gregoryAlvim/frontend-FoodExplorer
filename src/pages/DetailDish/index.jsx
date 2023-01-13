@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { FiMinus, FiPlus } from 'react-icons/fi';
+import { FiMinus, FiPlus, FiCameraOff } from 'react-icons/fi';
 
 import { api } from '../../services/api';
 
@@ -12,6 +12,8 @@ import { IconComponent } from '../../components/Icon';
 import { ParagraphComponent } from '../../components/Paragraph';
 import { Ingredients } from '../../components/Ingredients';
 import { FooterComponent } from '../../components/Footer';
+
+import noImage from '../../assets/noImage.png';
 
 import { Main, Container, Span, PriceAndIncludeContainer, DishInfoContainer, IncludeDishContainer, IncludeDishButtonsContainer } from './styles';
 

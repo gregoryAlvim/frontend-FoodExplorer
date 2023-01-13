@@ -24,6 +24,7 @@ export function EditDish() {
 
    const [ingredients, setIngredients] = useState([]);
    const [newIngredient, setNewIngredient] = useState("");
+   console.log(ingredients);
 
    const [name, setName] = useState("");
    const [price, setPrice] = useState("");
@@ -32,13 +33,16 @@ export function EditDish() {
    const [dishImage, setDishImage] = useState(null);
 
    function handleAddIngredient() {
-      setIngredients(prevState => [...prevState, newIngredient]);
+      setIngredients((prevState) => [...prevState, newIngredient]);
       setNewIngredient("");
    }
 
-   function handleRemoveIngredient(deleteIngredient) {
-      const ingredientsFiltered = ingredients.filter(ingredient => ingredient.name !== deleteIngredient);
-      setIngredients(ingredientsFiltered);
+   async function handleRemoveIngredient(deleteIngredient) {
+      setIngredients((prevState) => prevState.filter(ingredient => ingredient !== deleteIngredient));
+      setNewIngredient("");
+      console.log(ingredients);
+
+      await api.delete(`ingredients/delete-ingredient/${deleteIngredient}`);
    }
 
    function handleComebackToPreviousPage() {
@@ -91,7 +95,7 @@ export function EditDish() {
          setPrice(price),
          setCategory(category),
          setDescription(description),
-         setIngredients(ingredientsData)
+         setIngredients(ingredientsData.map(ingredient => ingredient.name))
 
       }
 
@@ -148,8 +152,8 @@ export function EditDish() {
                            ingredients.map((ingredient, index) => (
                               <IngredientItemComponent
                                  key={String(index)}
-                                 value={ingredient.name}
-                                 onClick={event => handleRemoveIngredient(ingredient.name)}
+                                 value={ingredient}
+                                 onClick={event => handleRemoveIngredient(ingredient)}
                               />
                            ))
                         }

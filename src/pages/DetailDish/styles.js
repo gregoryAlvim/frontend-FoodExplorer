@@ -24,8 +24,11 @@ export const Main = Styled.main`
    }
 
    & .dishImage {
-      width: 40%;
-      height: 40%;
+      width: 40rem;
+      height: 40rem;
+      border-radius: 50%;
+
+      background-size: cover;
    }
 
    @media ${devices.laptop} {

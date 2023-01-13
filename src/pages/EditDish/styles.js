@@ -51,6 +51,7 @@ export const Form = Styled.form`
       grid-area: inputImage;
       cursor: pointer;
       
+      
       .dishImageContainer {
          color: ${({ theme }) => theme.TEXT_COLORS.PRIMARY};
       }
