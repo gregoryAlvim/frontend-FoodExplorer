@@ -6,16 +6,16 @@
     <a href="#"> Food Explorer </a>
 </h1>
 
-<p align="center"> A aplicação que foi desenvolvida é um cardápio digital para um restaurante fictício, conhecido como food Explorer. O Frontend da aplicação foi desenvolvido com JavaScript e React.js </p>
+<p align="center"> A aplicação que foi desenvolvida é um cardápio digital para um restaurante fictício, conhecido como Food Explorer. O Frontend da aplicação foi desenvolvido com JavaScript e React.js </p>
 
 #
 
 <p align="center">
    <a href="#sobre">Sobre </a> •
    <a href="#features"> Features </a> •
-    <a href="#-layout">Layout</a> •
+   <a href="#-layout">Layout</a> •
    <a href="#tecnologias"> Tecnologias </a> •
-   <a href="#requisitos"> Pré Requisitos </a> •
+   <a href="#requisitos"> Requisitos </a> •
    <a href="#autor"> Autor </a> 
 </p>
 
@@ -82,7 +82,7 @@ Este projeto é divido em duas partes:
 
 💡 O Backend deve estar rodando em sua máquina para que o frontend seja reenderizado.
 
-## Pré-requisitos
+## Requisitos
 
 Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
 [Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
@@ -124,7 +124,7 @@ $ npm run dev
 ```
 ---
 
-## Autor and Contact
+## Autor
 
 <div> 
   <a href="https://www.linkedin.com/in/grégory-alvim/" target="_blank">
