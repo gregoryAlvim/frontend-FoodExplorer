@@ -14,13 +14,18 @@ import noImage from '../../assets/noImage.png';
 
 import { Container, Span, Section, IncludeDishContainer, ButtonsContainer, ItemButton } from './styles';
 
-export function ItemCarouselComponent({ dishId ,dishImage, name, description, price, handleSetMyRequests }) {
+export function ItemCarouselComponent({ dishId, dishImage, name, description, price, handleSetMyRequests }) {
 
    const navigate = useNavigate();
 
    const { user } = useAuth();
-   
+
    const [amountDish, setAmountDish] = useState(1);
+   const [active, setActive] = useState(false);
+
+   const handleClick = () => {
+      setActive(!active);
+   };
 
    const isAdmin = user.role === "Admin";
    const dishImageURL = dishImage ? `${api.defaults.baseURL}/files/${dishImage}` : noImage;
@@ -38,7 +43,7 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
    }
 
    function handleIncreaseAmountDish() {
-         setAmountDish(amountDish + 1);
+      setAmountDish(amountDish + 1);
    }
 
    async function handleDeleteDish() {
@@ -52,20 +57,24 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
       <Container>
          <ButtonsContainer>
             <TextButtonComponent className="buttons">
-               <FiHeart size={20} />
+               <FiHeart 
+                  size={20} 
+                  onClick={handleClick}
+                  fill={active ? "white" : "none"}
+               />
             </TextButtonComponent>
 
             {
-               isAdmin ? <TextButtonComponent 
+               isAdmin ? <TextButtonComponent
                   className="buttons"
                   onClick={redirectToUpdateDish}
                >
                   <FiEdit size={20} />
                </TextButtonComponent> : null
             }
-            
+
             {
-               isAdmin ? <TextButtonComponent 
+               isAdmin ? <TextButtonComponent
                   className="buttons"
                   onClick={handleDeleteDish}
                >
@@ -75,42 +84,42 @@ export function ItemCarouselComponent({ dishId ,dishImage, name, description, pr
          </ButtonsContainer>
 
          <Section onClick={redirectToDetailDish}>
-            
+
             <IconComponent className="dishImage" icon={dishImageURL} />
 
-            <Span className="dishInfoName">{ `${name} >` }</Span>
+            <Span className="dishInfoName">{`${name} >`}</Span>
 
-            <ParagraphComponent className="dishDescription"> { description } </ParagraphComponent>
+            <ParagraphComponent className="dishDescription"> {description} </ParagraphComponent>
 
-            <Span className="dishPrice"> { `R$ ${price}` } </Span>
+            <Span className="dishPrice"> {`R$ ${price}`} </Span>
 
          </Section>
-            <IncludeDishContainer>
-               <TextButtonComponent 
-                  className="minusAndPlusButton"
-                  onClick={handleDecreaseAmountDish}
-               >
-                  <FiMinus size={20} />
-               </TextButtonComponent>
+         <IncludeDishContainer>
+            <TextButtonComponent
+               className="minusAndPlusButton"
+               onClick={handleDecreaseAmountDish}
+            >
+               <FiMinus size={20} />
+            </TextButtonComponent>
 
-               <ParagraphComponent className="dishAmount">
-                  {String(amountDish).padStart(2, "0")}
-               </ParagraphComponent>
+            <ParagraphComponent className="dishAmount">
+               {String(amountDish).padStart(2, "0")}
+            </ParagraphComponent>
 
-               <TextButtonComponent 
-                  className="minusAndPlusButton"
-                  onClick={handleIncreaseAmountDish}
-               >
-                  <FiPlus size={20} />
-               </TextButtonComponent>
+            <TextButtonComponent
+               className="minusAndPlusButton"
+               onClick={handleIncreaseAmountDish}
+            >
+               <FiPlus size={20} />
+            </TextButtonComponent>
 
-               <ButtonComponent 
-                  className="addButton"
-                  onClick={() => handleSetMyRequests({dishImageURL, amountDish, name, price})}
-               >
-                  incluir
-               </ButtonComponent>
-            </IncludeDishContainer>
+            <ButtonComponent
+               className="addButton"
+               onClick={() => handleSetMyRequests({ dishImageURL, amountDish, name, price })}
+            >
+               incluir
+            </ButtonComponent>
+         </IncludeDishContainer>
       </Container>
    );
 }
