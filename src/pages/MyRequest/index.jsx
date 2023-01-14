@@ -25,7 +25,7 @@ export function MyRequest() {
          TotalPrice += (requestData[i].amountDish * requestData[i].price.replace(",", "."));
       }
 
-      return String(TotalPrice).replace(".", ",");
+      return String(TotalPrice.toFixed(2)).replace(".", ",");
    }
 
    function handleComebackToPreviousPage() {
