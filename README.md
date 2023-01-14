@@ -1,12 +1,10 @@
-<h4 align="center">
-   🚧 README em construção... 🚧
-</h4>
-
 <h1>
     <a href="#"> Food Explorer </a>
 </h1>
 
 <p align="center"> A aplicação que foi desenvolvida é um cardápio digital para um restaurante fictício, conhecido como Food Explorer. O Frontend da aplicação foi desenvolvido com JavaScript e React.js </p>
+
+
 
 #
 
@@ -18,6 +16,8 @@
    <a href="#requisitos"> Requisitos </a> •
    <a href="#autor"> Autor </a> 
 </p>
+
+https://user-images.githubusercontent.com/43592358/212474283-dbb0af2c-89c6-4fbd-b9c4-15be249c07c1.mp4
 
 ## Sobre
 
