@@ -71,7 +71,6 @@ Tecnologias utilizadas no Frontend:
 - [React.js](https://pt-br.reactjs.org/)
 - [Axios](https://axios-http.com/ptbr/)
 
-
 <br/>
 
 ## 🚀 Como executar o projeto.
